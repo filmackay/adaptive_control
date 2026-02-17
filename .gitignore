@@ -6,6 +6,7 @@ __pycache__
 */dist/*
 
 # misc
+.DS_Store
 .coverage
 .vscode/*
 !.vscode/settings.json

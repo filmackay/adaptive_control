@@ -1,4 +1,5 @@
 """Config flow for adaptive_control integration."""
+
 from __future__ import annotations
 
 from typing import Any
@@ -50,13 +51,26 @@ class AdaptiveControlConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                         selector.EntitySelectorConfig(domain="sensor"),
                     ),
                     vol.Required(CONF_OUTPUT_ENTITY): selector.EntitySelector(
-                        selector.EntitySelectorConfig(domain=["number","input_number"]),
+                        selector.EntitySelectorConfig(
+                            domain=["number", "input_number"]
+                        ),
                     ),
-                    vol.Optional(CONF_TARGET, default=DEFAULT_TARGET): vol.Coerce(float),
-                    vol.Optional(CONF_MIN_VALUE, default=DEFAULT_MIN_VALUE): vol.Coerce(float),
-                    vol.Optional(CONF_MAX_VALUE, default=DEFAULT_MAX_VALUE): vol.Coerce(float),
-                    vol.Optional(CONF_RLS_FORGETTING, default=DEFAULT_RLS_FORGETTING): vol.All(vol.Coerce(float), vol.Range(min=0.0, max=1.0)),
-                    vol.Optional(CONF_CONTROL_REGULARIZATION, default=DEFAULT_CONTROL_REGULARIZATION): vol.Coerce(float),
+                    vol.Optional(CONF_TARGET, default=DEFAULT_TARGET): vol.Coerce(
+                        float
+                    ),
+                    vol.Optional(CONF_MIN_VALUE, default=DEFAULT_MIN_VALUE): vol.Coerce(
+                        float
+                    ),
+                    vol.Optional(CONF_MAX_VALUE, default=DEFAULT_MAX_VALUE): vol.Coerce(
+                        float
+                    ),
+                    vol.Optional(
+                        CONF_RLS_FORGETTING, default=DEFAULT_RLS_FORGETTING
+                    ): vol.All(vol.Coerce(float), vol.Range(min=0.0, max=1.0)),
+                    vol.Optional(
+                        CONF_CONTROL_REGULARIZATION,
+                        default=DEFAULT_CONTROL_REGULARIZATION,
+                    ): vol.Coerce(float),
                 }
             ),
             errors=errors,
@@ -92,47 +106,65 @@ class AdaptiveControlOptionsFlowHandler(config_entries.OptionsFlow):
                     vol.Optional(
                         CONF_INPUT_SENSOR,
                         default=self.config_entry.options.get(
-                            CONF_INPUT_SENSOR, self.config_entry.data.get(CONF_INPUT_SENSOR)
+                            CONF_INPUT_SENSOR,
+                            self.config_entry.data.get(CONF_INPUT_SENSOR),
                         ),
                     ): selector.EntitySelector(
                         selector.EntitySelectorConfig(domain="sensor"),
                     ),
-                     vol.Optional(
+                    vol.Optional(
                         CONF_OUTPUT_ENTITY,
                         default=self.config_entry.options.get(
-                            CONF_OUTPUT_ENTITY, self.config_entry.data.get(CONF_OUTPUT_ENTITY)
+                            CONF_OUTPUT_ENTITY,
+                            self.config_entry.data.get(CONF_OUTPUT_ENTITY),
                         ),
                     ): selector.EntitySelector(
-                        selector.EntitySelectorConfig(domain=["number","input_number"]),
+                        selector.EntitySelectorConfig(
+                            domain=["number", "input_number"]
+                        ),
                     ),
                     vol.Optional(
                         CONF_TARGET,
                         default=self.config_entry.options.get(
-                            CONF_TARGET, self.config_entry.data.get(CONF_TARGET, DEFAULT_TARGET)
+                            CONF_TARGET,
+                            self.config_entry.data.get(CONF_TARGET, DEFAULT_TARGET),
                         ),
                     ): vol.Coerce(float),
                     vol.Optional(
                         CONF_MIN_VALUE,
                         default=self.config_entry.options.get(
-                            CONF_MIN_VALUE, self.config_entry.data.get(CONF_MIN_VALUE, DEFAULT_MIN_VALUE)
+                            CONF_MIN_VALUE,
+                            self.config_entry.data.get(
+                                CONF_MIN_VALUE, DEFAULT_MIN_VALUE
+                            ),
                         ),
                     ): vol.Coerce(float),
                     vol.Optional(
                         CONF_MAX_VALUE,
                         default=self.config_entry.options.get(
-                            CONF_MAX_VALUE, self.config_entry.data.get(CONF_MAX_VALUE, DEFAULT_MAX_VALUE)
+                            CONF_MAX_VALUE,
+                            self.config_entry.data.get(
+                                CONF_MAX_VALUE, DEFAULT_MAX_VALUE
+                            ),
                         ),
                     ): vol.Coerce(float),
                     vol.Optional(
                         CONF_RLS_FORGETTING,
                         default=self.config_entry.options.get(
-                            CONF_RLS_FORGETTING, self.config_entry.data.get(CONF_RLS_FORGETTING, DEFAULT_RLS_FORGETTING)
+                            CONF_RLS_FORGETTING,
+                            self.config_entry.data.get(
+                                CONF_RLS_FORGETTING, DEFAULT_RLS_FORGETTING
+                            ),
                         ),
                     ): vol.All(vol.Coerce(float), vol.Range(min=0.0, max=1.0)),
                     vol.Optional(
                         CONF_CONTROL_REGULARIZATION,
                         default=self.config_entry.options.get(
-                            CONF_CONTROL_REGULARIZATION, self.config_entry.data.get(CONF_CONTROL_REGULARIZATION, DEFAULT_CONTROL_REGULARIZATION)
+                            CONF_CONTROL_REGULARIZATION,
+                            self.config_entry.data.get(
+                                CONF_CONTROL_REGULARIZATION,
+                                DEFAULT_CONTROL_REGULARIZATION,
+                            ),
                         ),
                     ): vol.Coerce(float),
                 }

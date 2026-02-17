@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+# Create config dir if not present using ensure_config
+if [[ ! -d "${PWD}/config" ]]; then
+    mkdir -p "${PWD}/config"
+    uv run hass --script ensure_config -c "${PWD}/config"
+fi
+
+# Run Home Assistant
+uv run hass -c "${PWD}/config" --debug
